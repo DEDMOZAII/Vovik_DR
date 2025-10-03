@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Судоку: Щоденна Загадка</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    
+    <a href="{{ url_for('password_gate') }}" class="back-arrow-button" title="Назад до вибору ігор">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="game-page-container sudoku-container">
+        
+        <div class="control-panel sudoku-controls">
+            <h2>Судоку</h2>
+            <p class="description">Розслабтеся та знайдіть рішення.</p>
+
+            <button onclick="sudoku.restartGame('easy')">
+                <i class="fas fa-redo"></i> Нова гра (Легка)
+            </button>
+            <button onclick="sudoku.restartGame('medium')">
+                <i class="fas fa-redo"></i> Нова гра (Середня)
+            </button>
+            <button onclick="sudoku.restartGame('hard')">
+                <i class="fas fa-redo"></i> Нова гра (Складна)
+            </button>
+            
+            <div class="divider"></div>
+
+            <button class="small-button" onclick="sudoku.toggleNoteMode()">
+                <i class="fas fa-pencil-alt"></i> Нотатки
+            </button>
+            <button class="small-button" onclick="sudoku.useHint()">
+                <i class="fas fa-lightbulb"></i> Підказка
+            </button>
+
+            <div class="volume-control">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+            </div>
+            
+        </div>
+
+        <div id="sudoku-game-area">
+            <div id="sudoku-grid" class="sudoku-grid-9x9">
+            </div>
+
+            <div id="number-panel">
+                <button class="num-button">1</button>
+                <button class="num-button">2</button>
+                <button class="num-button">3</button>
+                <button class="num-button">4</button>
+                <button class="num-button">5</button>
+                <button class="num-button">6</button>
+                <button class="num-button">7</button>
+                <button class="num-button">8</button>
+                <button class="num-button">9</button>
+                <button id="erase-button" class="num-button action-button">
+                    <i class="fas fa-eraser"></i>
+                </button>
+            </div>
+        </div>
+        
+    </div>
+
+    <audio id="bgm" src="{{ url_for('static', filename='audio/sudoku_bgm.mp3') }}" loop></audio>
+    <audio id="click" src="{{ url_for('static', filename='audio/click.mp3') }}"></audio>
+    <audio id="error" src="{{ url_for('static', filename='audio/error.mp3') }}"></audio>
+    <audio id="win" src="{{ url_for('static', filename='audio/win.mp3') }}"></audio>
+    <audio id="hint" src="{{ url_for('static', filename='audio/hint.mp3') }}"></audio>
+    <audio id="note" src="{{ url_for('static', filename='audio/note.mp3') }}"></audio>
+    <audio id="erase" src="{{ url_for('static', filename='audio/erase.mp3') }}"></audio>
+
+    <script>
+        // Функція для надсилання POST-запиту на Flask 
+        async function postTaskCompletion(taskName) {
+            try {
+                const response = await fetch('/complete_task', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ task: taskName })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(`Task ${taskName} completed status:`, data.message);
+                    
+                    if (data.all_completed) {
+                        // АВТОМАТИЧНЕ ПЕРЕНАПРАВЛЕННЯ
+                        alert("🎉 Всі ігри завершено! Зараз буде перехід до фінального посилання.");
+                        window.location.href = '/final_link'; 
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to post task completion:', error);
+            }
+        }
+    </script>
+    <script src="{{ url_for('static', filename='sudoku.js') }}"></script>
+</body>
+</html>

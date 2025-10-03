@@ -1,0 +1,560 @@
+/* --- 1. ГЛОБАЛЬНІ СТИЛІ ТА ФОН --- */
+body {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    color: #e0e0e0; 
+    /* Глибокий фіолетово-синій градієнт */
+    background: linear-gradient(-45deg, #0A1931, #185ADB, #6639A6, #3E0C60); 
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite; 
+    overflow-x: hidden; 
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- 2. ЗАГАЛЬНІ ЕЛЕМЕНТИ ТА КОНТЕЙНЕРИ (Glassmorphism) --- */
+h1 {
+    font-size: 3.2em; 
+    font-weight: 900;
+    margin-bottom: 30px;
+    color: #fff;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1); 
+    letter-spacing: 1px;
+}
+h2 {
+    font-size: 2em;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* Контейнери входу та вибору ігор */
+.password-container, .game-select-container {
+    padding: 35px 45px; 
+    border-radius: 20px; 
+    background: rgba(255, 255, 255, 0.08); 
+    backdrop-filter: blur(15px); 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.7); 
+    max-width: 450px; 
+    width: 90%;
+}
+
+/* --- 3. ФОРМИ ТА КНОПКИ ГЛАВНОГО МЕНЮ --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+input[type="text"] {
+    padding: 14px 18px; font-size: 17px; border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3); background-color: rgba(0, 0, 0, 0.3); 
+    color: #f0f0f0; box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+input[type="text"]:focus {
+    border-color: #F8B400; outline: none; transform: scale(1.01);
+}
+/* Кнопка "Розблокувати" */
+button[type="submit"] {
+    padding: 15px 30px; font-size: 18px; font-weight: 700; border-radius: 10px;
+    border: none; cursor: pointer; color: #fff;
+    background: linear-gradient(135deg, #185ADB, #0A1931); 
+    box-shadow: 0 6px 15px rgba(24, 90, 219, 0.4);
+    transition: all 0.3s ease;
+}
+button[type="submit"]:hover {
+    background: linear-gradient(135deg, #0A1931, #185ADB);
+    transform: translateY(-3px); box-shadow: 0 8px 25px rgba(24, 90, 219, 0.6);
+}
+
+/* Сітка вибору ігор */
+.button-grid.wide-grid {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; 
+    margin-top: 25px;
+}
+.game-button {
+    text-decoration: none; padding: 20px 10px; font-size: 16px;
+    font-weight: 700; border-radius: 12px; color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    background: linear-gradient(135deg, #00B0FF, #0081C4); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease;
+}
+.game-button:hover {
+    transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 176, 255, 0.8);
+    background: linear-gradient(135deg, #0081C4, #00B0FF);
+}
+/* Стиль для пройденої гри в сітці */
+.game-button.completed-game {
+    background: linear-gradient(135deg, #00A86B, #007A51);
+    border: 3px solid #00A86B;
+    box-shadow: 0 6px 15px rgba(0, 168, 107, 0.4);
+}
+
+
+/* --- ІНДИКАТОРИ ДОСЯГНЕНЬ (ACHIEVEMENTS) --- */
+.achievements-status {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.achievement-badge {
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.achievement-badge.pending {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #F8B400;
+}
+.achievement-badge.completed {
+    background-color: rgba(0, 168, 107, 0.2); 
+    color: #00A86B;
+}
+
+/* Кнопка "Наступний Крок" */
+.action-button.large-button {
+    width: 100%;
+    padding: 18px;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-button.locked {
+    background: linear-gradient(135deg, #CC0000, #FF4D4D);
+    color: #fff;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+.action-button.unlocked {
+    background: linear-gradient(135deg, #F8B400, #FFC72C);
+    color: #333;
+    cursor: pointer;
+    opacity: 1;
+    box-shadow: 0 6px 20px rgba(248, 180, 0, 0.7);
+}
+.action-button.unlocked:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(248, 180, 0, 0.9);
+}
+
+
+/* --- 4. УНІВЕРСАЛЬНІ СТИЛІ ІГРОВОГО ЕКРАНУ --- */
+
+/* Контейнер гри (загальний) */
+body:has(.game-page-container) {
+    flex-direction: row; align-items: center; justify-content: center;
+}
+.game-page-container {
+    display: flex; gap: 30px; padding: 30px; 
+    background: rgba(255, 255, 255, 0.08); 
+    backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7); 
+    border-radius: 20px; margin-top: 0;
+}
+
+/* КНОПКА "НАЗАД" */
+.back-arrow-button {
+    position: fixed; top: 30px; left: 30px;
+    background: rgba(255, 255, 255, 0.15); border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%; width: 50px; height: 50px;
+    font-size: 26px; color: #F8B400; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+.back-arrow-button:hover {
+    background: rgba(255, 255, 255, 0.3); transform: scale(1.15); color: #FFF; 
+    box-shadow: 0 0 20px #F8B400;
+}
+
+/* БІЧНА ПАНЕЛЬ КЕРУВАННЯ */
+.control-panel {
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 30px; border-radius: 20px; width: 200px; 
+    box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+    align-self: flex-start;
+}
+.control-panel h2 {
+    color: #F8B400; 
+    border-bottom: 2px solid rgba(255,255,255,0.3);
+    padding-bottom: 12px; margin-bottom: 25px;
+    text-shadow: 0 0 5px rgba(248, 180, 0, 0.3);
+}
+
+/* Кнопки в Control Panel (Сапер/Судоку) */
+.control-panel button {
+    width: 100%; padding: 15px 15px; font-size: 17px; border-radius: 10px;
+    font-weight: 700; margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    display: flex; align-items: center; justify-content: center; color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.control-panel button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8); 
+}
+.control-panel i {
+    margin-right: 12px; font-size: 1.1em;
+}
+
+/* Спеціальні стилі для кнопок */
+.control-panel button:not(.small-button) { 
+    background: linear-gradient(135deg, #FF4D4D, #CC0000); 
+}
+.control-panel .small-button { 
+    background: linear-gradient(135deg, #00A86B, #007A51); 
+    transition: all 0.3s ease, background 0.3s ease; 
+}
+
+/* СТИЛЬ АКТИВНОГО РЕЖИМУ НОТАТОК */
+.control-panel .note-mode-active-button { 
+    background: linear-gradient(135deg, #FFC72C, #F8B400); /* Золотий для активного стану */
+    box-shadow: 0 4px 15px rgba(255, 199, 44, 0.7); 
+    color: #333; 
+}
+
+.control-panel .note-mode-active-button:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 8px 25px rgba(255, 199, 44, 0.9);
+}
+
+/* Роздільник */
+.divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 15px 0;
+}
+
+/* --- 5. СТИЛІ ПОВЗУНКА ГУЧНОСТІ --- */
+.volume-control {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 0 10px 0; 
+    margin-top: 15px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.15); 
+}
+
+.volume-control i {
+    color: #00B0FF; 
+    font-size: 1.2em;
+    margin: 0; 
+}
+
+#volumeSlider {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: 100%;
+    height: 6px; 
+    background: rgba(255, 255, 255, 0.2); 
+    outline: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Стиль для повзунка (Thumb) */
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px; 
+    height: 16px;
+    border-radius: 50%; 
+    background: #00B0FF; 
+    border: 2px solid #fff;
+    box-shadow: 0 0 5px rgba(0, 176, 255, 0.7);
+    transition: all 0.2s ease;
+}
+#volumeSlider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #00B0FF;
+    border: 2px solid #fff;
+    box-shadow: 0 0 5px rgba(0, 176, 255, 0.7);
+    transition: all 0.2s ease;
+}
+
+/* --- 6. СТИЛІ СУДОКУ --- */
+
+.sudoku-container {
+    max-width: 900px;
+    align-items: flex-start;
+}
+
+#sudoku-game-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 1. КОНТЕЙНЕР СІТКИ (Grid Container) */
+#sudoku-grid {
+    display: grid;
+    /* Створюємо сітку 9x9: 9 однакових колонок */
+    grid-template-columns: repeat(9, 1fr); 
+    /* Встановлюємо динамічний розмір, щоб поміститися на екрані */
+    width: min(85vh, 540px);
+    height: min(85vh, 540px);
+    
+    border: 3px solid #F8B400; /* Зовнішня товста рамка */
+    box-shadow: 0 0 15px rgba(248, 180, 0, 0.5);
+    background-color: #f5f5f5; 
+}
+
+/* 2. КЛІТИНКА (Cell Styling) */
+.cell {
+    /* Видаляємо фіксовані 60px; тепер розмір визначається grid-template-columns/rows */
+    width: auto; 
+    height: auto;
+    
+    border: 1px solid #ccc; /* Тонка внутрішня лінія */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    position: relative;
+    /* Важливо: box-sizing вже визначено у вашому початковому коді, що добре */
+    box-sizing: border-box; 
+    user-select: none;
+}
+
+/* 3. ЖИРНІ ЛІНІЇ ДЛЯ БЛОКІВ 3x3 */
+
+/* ВЕРТИКАЛЬНІ лінії (після 3-ї та 6-ї колонки) */
+/* Для кожної клітинки, що є 3-ю, 6-ю, 12-ю, 15-ю і т.д. (3n), встановлюємо товсту праву межу */
+.cell:nth-child(3n) { 
+    border-right-width: 2px; 
+    border-right-color: #666; 
+}
+/* Скидаємо товсту межу для останнього стовпця (9n), який має зовнішню рамку контейнера */
+.cell:nth-child(9n) { 
+    border-right-width: 1px !important;
+    border-right-color: #ccc !important; 
+}
+
+
+/* ГОРИЗОНТАЛЬНІ лінії (після 3-го та 6-го рядка) */
+/* Використовуємо комбінатор ~ для застосування товстої нижньої межі до всіх елементів, 
+   починаючи з 28-го (3-й рядок) та 55-го (6-й рядок) */
+/* 3-й рядок: клітинки з 19 по 27. Жирна лінія має бути знизу 27-ї клітинки. */
+/* 6-й рядок: клітинки з 46 по 54. Жирна лінія має бути знизу 54-ї клітинки. */
+
+/* Скидаємо всі попередні горизонтальні правила, щоб працював коректний підхід */
+.cell { border-bottom: 1px solid #ccc; }
+
+
+/* Застосовуємо товсту лінію для всього 3-го ряду (клітинки 19-27) та 6-го ряду (клітинки 46-54) */
+#sudoku-grid .cell:nth-child(n+19):nth-child(-n+27),
+#sudoku-grid .cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid #666;
+}
+
+/* 4. СТИЛІ ДЛЯ НОТАТОК (виправлено grid-template-rows, щоб було 3x3) */
+.notes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Виправлення: додаємо рядки, щоб нотатки були в сітці 3x3 */
+    grid-template-rows: repeat(3, 1fr); 
+    font-size: 10px;
+    font-weight: 400;
+    color: #777;
+    width: 100%;
+    height: 100%;
+}
+.notes div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* 5. КОРИСТУВАЦЬКІ СТАНИ (повертаємо ваші стилі) */
+.cell.initial { color: #111; font-weight: 900; background-color: #e8e8e8; }
+.cell.selected { background-color: #B0E0E6; } 
+.cell.highlighted { background-color: #E0FFFF; } 
+.cell.error { background-color: #FFB6C1; color: #CC0000; } 
+.cell.note-mode-active { background-color: #f5f5f5 !important; }
+
+/* Панель вибору чисел Судоку (залишаємо, як є, вона вже має правильний width: 540px) */
+#number-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 540px;
+}
+/* ... ваші стилі для .num-button, .action-button та #erase-button ... */
+
+/* --- 7. СТИЛІ ГРИ "ЗНАЙТИ 25" --- */
+
+.find25-container {
+    max-width: 800px;
+}
+
+.find25-controls .info-line {
+    font-size: 1.3em;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding: 5px 0;
+    color: #fff;
+    text-align: left;
+}
+.find25-controls .info-line i {
+    color: #F8B400; 
+    margin-right: 10px;
+}
+#timer {
+    color: #00B0FF; 
+}
+#next-number {
+    color: #FFC72C; 
+}
+
+
+#find25-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 500px; 
+    height: 500px;
+    border: 3px solid #185ADB;
+    box-shadow: 0 0 20px rgba(24, 90, 219, 0.7);
+    background-color: #f0f0f0;
+}
+
+.find25-cell {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    background-color: #fff;
+}
+
+.find25-cell:hover {
+    background-color: #E0F7FA;
+}
+
+/* Стиль для правильно знайденого числа */
+.find25-cell.found {
+    background-color: #00A86B; 
+    color: #fff;
+    pointer-events: none; 
+    transform: scale(0.95);
+    border: 1px solid #007A51;
+}
+
+.message-area {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+}
+.message-area.win {
+    background: linear-gradient(45deg, #00A86B, #007A51);
+}
+.message-area.error {
+    background: linear-gradient(45deg, #FF4D4D, #CC0000);
+}
+
+/* --- 8. СТИЛІ ФІНАЛЬНОЇ СТОРІНКИ (next_step.html) --- */
+
+.final-page ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    text-align: left;
+    width: 80%;
+}
+.final-page li {
+    font-size: 1.1em;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.final-page li i {
+    margin-right: 10px;
+}
+.final-page li.completed {
+    color: #00A86B;
+    font-weight: 700;
+}
+.final-page li.pending {
+    color: #FFC72C;
+}
+
+.final-message {
+    font-size: 1.3em;
+    font-weight: 700;
+    margin: 20px 0;
+}
+.success-message {
+    color: #00A86B;
+}
+.pending-message {
+    color: #FF4D4D;
+}
+.final-link-button {
+    text-decoration: none;
+    display: block;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: 900;
+    border-radius: 10px;
+    margin: 30px auto;
+    width: 80%;
+    background: linear-gradient(135deg, #185ADB, #0A1931);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+.final-link-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(24, 90, 219, 0.8);
+}
+.small-text {
+    font-size: 0.9em;
+    color: #aaa;
+}

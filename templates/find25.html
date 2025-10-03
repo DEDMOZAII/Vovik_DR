@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Знайти 25</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    
+    <a href="{{ url_for('password_gate') }}" class="back-arrow-button" title="Назад до вибору ігор">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="game-page-container find25-container">
+        
+        <div class="control-panel find25-controls">
+            <h2>Знайти 25</h2>
+            <p class="description">Знайдіть усі числа по порядку від 1 до 25 якомога швидше.</p>
+
+            <div class="info-line">
+                <i class="fas fa-clock"></i> Час: <span id="timer">00:00.00</span>
+            </div>
+            <div class="info-line">
+                <i class="fas fa-check"></i> Наступне: <span id="next-number">1</span>
+            </div>
+
+            <button onclick="window.find25Game.startGame()">
+                <i class="fas fa-redo"></i> Нова Гра
+            </button>
+            
+            <div class="divider"></div>
+            
+            <div class="volume-control">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+            </div>
+            
+        </div>
+
+        <div id="find25-game-area">
+            <div id="find25-grid">
+                </div>
+            <div id="message-area" class="message-area" style="display: none;"></div>
+        </div>
+        
+    </div>
+
+    <audio id="find25_bgm" src="{{ url_for('static', filename='audio/find25_bgm.mp3') }}" loop></audio>
+    <audio id="success" src="{{ url_for('static', filename='audio/click.mp3') }}"></audio>
+    <audio id="error" src="{{ url_for('static', filename='audio/error.mp3') }}"></audio>
+    <audio id="finish" src="{{ url_for('static', filename='audio/win.mp3') }}"></audio>
+
+    <script>
+        // Функція для надсилання POST-запиту на Flask
+        async function postTaskCompletion(taskName) {
+            try {
+                const response = await fetch('/complete_task', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ task: taskName })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(`Task ${taskName} completed status:`, data.message);
+                    if (data.all_completed) {
+                        alert("🎉 Всі ігри завершено! Натисніть 'Наступний Крок' у меню.");
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to post task completion:', error);
+            }
+        }
+    </script>
+    <script src="{{ url_for('static', filename='find25.js') }}"></script>
+</body>
+</html>

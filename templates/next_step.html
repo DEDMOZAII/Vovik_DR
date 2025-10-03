@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фінал</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <a href="{{ url_for('password_gate') }}" class="back-arrow-button" title="Назад до вибору ігор">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    
+    <div class="password-container final-page">
+        <h1>Ваш Фінальний Крок</h1>
+
+        {% if all_completed %}
+            <p class="final-message success-message">
+                Вітаємо! Ви успішно пройшли всі три випробування. <br>
+                Ось ваше секретне посилання:
+            </p>
+            <a href="{{ target_link }}" target="_blank" class="game-button final-link-button">
+                 <i class="fas fa-external-link-alt"></i> ПЕРЕЙТИ НА GOOGLE DRIVE
+            </a>
+            <p class="small-text">Посилання дійсне лише для вас.</p>
+        {% else %}
+            <p class="final-message pending-message">
+                <i class="fas fa-lock"></i> Доступ заблоковано.
+            </p>
+            <p class="small-text">
+                Щоб отримати посилання, ви маєте успішно завершити всі ігри:
+            </p>
+            <ul>
+                <li class="{{ 'completed' if achievements.minesweeper_cleared else 'pending' }}">
+                    <i class="fas {{ 'fa-check' if achievements.minesweeper_cleared else 'fa-times' }}"></i> Сапер
+                </li>
+                <li class="{{ 'completed' if achievements.sudoku_solved else 'pending' }}">
+                    <i class="fas {{ 'fa-check' if achievements.sudoku_solved else 'fa-times' }}"></i> Судоку
+                </li>
+                <li class="{{ 'completed' if achievements.find25_found else 'pending' }}">
+                    <i class="fas {{ 'fa-check' if achievements.find25_found else 'fa-times' }}"></i> Знайти 25
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>

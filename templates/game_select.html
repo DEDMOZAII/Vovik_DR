@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вибір Ігор</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-select-container">
+        <h1>Ігровий Портал</h1>
+        
+        <div class="achievements-status">
+            <span class="achievement-badge {{ 'completed' if achievements.minesweeper_cleared else 'pending' }}">
+                <i class="fas {{ 'fa-check-circle' if achievements.minesweeper_cleared else 'fa-circle' }}"></i>
+                Сапер
+            </span>
+            <span class="achievement-badge {{ 'completed' if achievements.sudoku_solved else 'pending' }}">
+                <i class="fas {{ 'fa-check-circle' if achievements.sudoku_solved else 'fa-circle' }}"></i>
+                Судоку
+            </span>
+            <span class="achievement-badge {{ 'completed' if achievements.find25_found else 'pending' }}">
+                <i class="fas {{ 'fa-check-circle' if achievements.find25_found else 'fa-circle' }}"></i>
+                Знайти 25
+            </span>
+        </div>
+        
+        <div class="button-grid wide-grid">
+            <a href="{{ url_for('minesweeper_game') }}" class="game-button {{ 'completed-game' if achievements.minesweeper_cleared }}">
+                <i class="fas fa-bomb"></i> Сапер
+            </a>
+            <a href="{{ url_for('sudoku_game') }}" class="game-button {{ 'completed-game' if achievements.sudoku_solved }}">
+                <i class="fas fa-grip-horizontal"></i> Судоку
+            </a>
+            <a href="{{ url_for('find25_game') }}" class="game-button {{ 'completed-game' if achievements.find25_found }}">
+                <i class="fas fa-tachometer-alt"></i> Знайти 25
+            </a>
+        </div>
+        
+        <a href="{{ url_for('next_step') }}" id="next-step-button" 
+           class="action-button large-button {{ 'unlocked' if all_completed else 'locked' }}">
+            <i class="fas fa-arrow-circle-right"></i> 
+            {% if all_completed %}
+                Наступний Крок (Розблоковано)
+            {% else %}
+                Наступний Крок (Потрібно завершити всі ігри)
+            {% endif %}
+        </a>
+    </div>
+</body>
+</html>
