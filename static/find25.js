@@ -12,7 +12,7 @@ const Find25Game = (function () {
     const successS = document.getElementById('success');
     const errorS = document.getElementById('error');
     const finishS = document.getElementById('finish');
-    const bgm = document.getElementById('find25_bgm'); // ОНОВЛЕНО
+    const bgm = document.getElementById('site\static\audio\find25_bgm.mp3'); // ОНОВЛЕНО
 
     // Елементи UI
     const gridElement = document.getElementById('find25-grid');
