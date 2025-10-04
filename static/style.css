@@ -257,6 +257,45 @@ body:has(.game-page-container) {
     margin: 15px 0;
 }
 
+.control-panel .description {
+    font-size: 0.9em;
+    color: #ccc;
+    margin-bottom: 20px;
+    height: 2.5em; /* Резервуємо місце, щоб панель не стрибала */
+}
+
+#timerDisplay {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #F8B400;
+    margin-bottom: 15px;
+    text-shadow: 0 0 5px rgba(248, 180, 0, 0.5);
+}
+
+/* Стиль для активної кнопки складності */
+.control-panel button.difficulty-active {
+    background: linear-gradient(135deg, #FFC72C, #F8B400); 
+    box-shadow: 0 4px 15px rgba(255, 199, 44, 0.7); 
+    color: #333; 
+    transform: translateY(-2px);
+}
+
+#timerDisplay {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #F8B400;
+    margin: 15px 0;
+    text-shadow: 0 0 5px rgba(248, 180, 0, 0.5);
+}
+
+/* Стиль для активної кнопки складності */
+.control-panel button.difficulty-active {
+    background: linear-gradient(135deg, #FFC72C, #F8B400); 
+    box-shadow: 0 4px 15px rgba(255, 199, 44, 0.7); 
+    color: #333; 
+    transform: translateY(-2px);
+}
+
 /* --- 5. СТИЛІ ПОВЗУНКА ГУЧНОСТІ --- */
 .volume-control {
     width: 100%;
@@ -418,7 +457,52 @@ body:has(.game-page-container) {
     justify-content: space-between;
     width: 540px;
 }
-/* ... ваші стилі для .num-button, .action-button та #erase-button ... */
+/* --- СТИЛІ ПАНЕЛІ ВИБОРУ ЧИСЕЛ (СУДОКУ) - ОНОВЛЕНО --- */
+#number-panel {
+    display: flex;
+    justify-content: center; /* центруємо кнопки */
+    gap: 12px; /* трохи збільшимо проміжок */
+    width: 100%; /* ширина на весь контейнер */
+    margin-top: 20px;
+}
+
+.num-button {
+    width: 52px;  /* Збільшено */
+    height: 52px; /* Збільшено */
+    font-size: 26px; /* Збільшено */
+    font-weight: 700;
+    color: #e0e0e0;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%; /* Зроблено круглими */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.num-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px) scale(1.05); /* Більш виражений ефект */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+    color: #fff;
+}
+
+/* Стиль для кнопки "Стерти" */
+.num-button.action-button {
+    background: linear-gradient(145deg, rgba(248, 180, 0, 0.2), rgba(248, 180, 0, 0.1));
+    border-color: #F8B400;
+    color: #F8B400;
+}
+
+.num-button.action-button:hover {
+    background: #F8B400;
+    color: #111;
+    text-shadow: none;
+}
 
 /* --- 7. СТИЛІ ГРИ "ЗНАЙТИ 25" --- */
 

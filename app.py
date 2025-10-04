@@ -9,7 +9,7 @@ CORRECT_PASSWORD = "ПЕНСІЯ"
 PASSWORD_KEY = 'isAuthenticated'
 ACHIEVEMENTS_KEY = 'achievements'
 # !!! ЗАМІНІТЬ ЦЕ ПОСИЛАННЯ НА ВАШЕ СЕКРЕТНЕ ПОСИЛАННЯ GOOGLE DRIVE !!!
-TARGET_LINK = "https://drive.google.com/drive/folders/YOUR_SECRET_LINK_HERE" 
+TARGET_LINK = "https://drive.google.com/file/d/13xaUS8NdAkOG-2U54bfg2Jop8j8NbGwj/view?usp=sharing" 
 
 # Ініціалізація досягнень
 def initialize_achievements():

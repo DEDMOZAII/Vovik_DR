@@ -15,10 +15,14 @@
     <div class="game-page-container">
         <div class="control-panel">
             <h2>Сапер</h2>
-            <p class="description">Класична гра: 30x16, 99 мін.</p>
 
-            <button onclick="window.restartGame()">
-                <i class="fas fa-redo"></i> Розпочати
+            <div id="timerDisplay">Час: 00:00</div>
+
+            <button id="diff-medium" onclick="changeDifficulty('medium')">
+                <i class="fas fa-balance-scale"></i> Середня
+            </button>
+            <button id="diff-hard" onclick="changeDifficulty('hard')">
+                <i class="fas fa-fire"></i> Складна
             </button>
             
             <div class="divider"></div>
